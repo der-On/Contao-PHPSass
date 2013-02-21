@@ -30,7 +30,7 @@ class PHPSass extends Frontend
                         $config = array(
                             'style' => $folder['output_style'],
                             'syntax' => SassFile::SCSS,
-                            'load_paths' => array($sass_dir),
+                            'load_paths' => (!empty($extensions_dir))?array($extensions_dir):array(),
                             'cache' => FALSE,
                             'debug' => $GLOBALS['TL_CONFIG']['displayErrors'],
                         );
