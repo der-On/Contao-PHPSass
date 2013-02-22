@@ -4,6 +4,12 @@ Contao-PHPSass
 Extension for the Contao CMS that allows usage of the PHPSass library.
 
 
+Installation
+============
+
+The files need to be placed within the folder system/modules/phpsass/
+
+
 Usage
 =====
 
