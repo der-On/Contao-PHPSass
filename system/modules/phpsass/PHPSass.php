@@ -6,6 +6,13 @@ class PHPSass extends Frontend
         $this->import('Database');
     }
 
+    public function parseFrontendTemplate($strContent, $strTemplate)
+    {
+        $this->compileSassFolders();
+
+        return $strContent;
+    }
+
     public function compileSassFolders()
     {
         if (!isset($GLOBALS['phpsass_compiled'])) {

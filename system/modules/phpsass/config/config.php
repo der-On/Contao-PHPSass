@@ -5,4 +5,4 @@ $GLOBALS['BE_MOD']['design']['phpsass'] = array
     'tables' => array('tl_phpsass'),
 );
 
-$GLOBALS['TL_HOOKS']['parseFrontendTemplate'][] = array('PHPSass', 'compileSassFolders');
+$GLOBALS['TL_HOOKS']['parseFrontendTemplate'][] = array('PHPSass', 'parseFrontendTemplate');
