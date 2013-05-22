@@ -15,6 +15,8 @@ class PHPSass extends Frontend
 
     public function compileSassFolders()
     {
+        $version = floatval(VERSION);
+
         if (!isset($GLOBALS['phpsass_compiled'])) {
             $library = __DIR__ . '/lib/phpsass/SassParser.php';
 
@@ -26,12 +28,20 @@ class PHPSass extends Frontend
                     $folders = $q->execute()->fetchAllAssoc();
 
                     foreach($folders as $folder) {
+                        if ($version < 3.0) {
+                            $css_dir = TL_ROOT . '/' . $folder['css_dir'];
+                            $sass_dir = TL_ROOT . '/' . $folder['sass_dir'];
+                            $extensions_dir = (!empty($folder['extensions_dir'])) ? TL_ROOT . '/' . $folder['extensions_dir'] : NULL;
+                            $images_dir = (!empty($folder['images_dir'])) ? TL_ROOT . '/' . $folder['images_dir'] : NULL;
+                            $javascripts_dir = (!empty($folder['javascripts_dir'])) ? TL_ROOT . '/' . $folder['javascripts_dir'] : NULL;
+                        } else {
+                            $css_dir = TL_ROOT . '/' . FilesModel::findOneById($folder['css_dir'])->path;
+                            $sass_dir = TL_ROOT . '/' . FilesModel::findOneById($folder['sass_dir'])->path;
+                            $extensions_dir = (!empty($folder['extensions_dir'])) ? TL_ROOT . '/' . FilesModel::findOneById($folder['extensions_dir'])->path : NULL;
+                            $images_dir = (!empty($folder['images_dir'])) ? TL_ROOT . '/' . FilesModel::findOneById($folder['images_dir']) : NULL;
+                            $javascripts_dir = (!empty($folder['javascripts_dir'])) ? TL_ROOT . '/' . FilesModel::findOneById($folder['javascripts_dir'])->path : NULL;
+                        }
 
-                        $css_dir = TL_ROOT . '/' . $folder['css_dir'];
-                        $sass_dir = TL_ROOT . '/' . $folder['sass_dir'];
-                        $extensions_dir = (!empty($folder['extensions_dir']))?TL_ROOT . '/' . $folder['extensions_dir']:NULL;
-                        $images_dir = (!empty($folder['images_dir']))?TL_ROOT . '/' . $folder['images_dir']:NULL;
-                        $javascripts_dir = (!empty($folder['javascripts_dir']))?TL_ROOT . '/' . $folder['javascripts_dir']:NULL;
                         $output_style = $folder['output_style'];
 
                         $config = array(
